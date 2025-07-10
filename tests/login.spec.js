@@ -1,3 +1,5 @@
+// Playwright Basics Activity 1
+
 import { test, expect } from '@playwright/test';
 
 test('Verify login with valid credentials', async ({ page }) => {
@@ -15,3 +17,9 @@ test('Verify login fails with invalid credentials', async ({ page }) => {
   await page.locator('[data-test="login-button"]').click()
   await expect(page.locator('[data-test="error"]')).toContainText('Username and password do not match')
 });
+
+// You can run this test via Headed or Headless mode
+// Headed mode: npx playwright test tests/login.spec.js --headed
+// Headless mode: npx playwright test tests/login.spec.js
+// Run via --ui flag: npx playwright test tests/login.spec.js --ui
+// Run in Chrome: npx playwright test tests/login.spec.js --project chromium
