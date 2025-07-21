@@ -1,11 +1,12 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Pokemon Table Tests', () => {
+test.describe("Pokemon Table Tests", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('https://labs.tesautomationph.com/table'); 
+    await page.goto("https://labs.testautomationph.com/table"); 
   });
 
-  test('Should show pokemon data in table', async ({ page }) => {
+  test("Should show pokemon data in table", async ({ page }) => {
+    
     const firstRow = page.locator('[data-testid^="pokemon-row-"]').first(); // ^ = starts with
     await firstRow.waitFor({ state: 'visible' });
     await expect(firstRow).toBeVisible();
@@ -20,11 +21,12 @@ test.describe('Pokemon Table Tests', () => {
     const fifthRow = page.locator('[data-testid^="pokemon-row-"]').nth(4);
     await fifthRow.waitFor({ state: 'visible' });
     await expect(fifthRow).toBeVisible();
-    
+
     const cells = await fifthRow.locator('td').allTextContents();
     const formattedOutput = cells.join(' | ');
     console.log('Row cells:', formattedOutput);
   });
+
 
   test('Should filter pokemon when searching', async ({ page }) => {
     // Find search box and type "pikachu"
@@ -32,7 +34,50 @@ test.describe('Pokemon Table Tests', () => {
 
     // Check only matching rows show
     const rows = page.locator('[data-testid^="pokemon-row-"]');
+    await rows.waitFor({ state: 'visible' });
     await expect(rows).toHaveCount(1);
-    await expect(rows.first()).toContainText('Pikachu');
+    await expect(rows).toHaveText(/Pikachu/); // Use Regex to match a particular text
+  });
+  test('Should sort by name when clicking header', async ({ page }) => {
+    
+    await page.locator('[data-testid="name-header"]').click();
+
+    // Get name from first row after sorting
+    const firstRow = page.locator('[data-testid^="pokemon-row-"]').first();
+    const firstName = await firstRow.locator('[data-testid^="name-cell-"]').textContent();
+    
+    // Get name from last row after sorting
+    const lastRow = page.locator('[data-testid^="pokemon-row-"]').last();
+    const lastName = await lastRow.locator('[data-testid^="name-cell-"]').textContent();
+
+    // Check names are in order (A should come before Z)
+    if (firstName !== null && lastName !== null) {
+      expect(firstName < lastName).toBe(true);
+    } else {
+      throw new Error('First name or last name is null');
+    }
+  });
+
+  test('Should change pages correctly', async ({ page }) => {
+    // Go to next page
+    await page.locator('[data-testid="next-page-button"]').click();
+    await expect(page.locator('[data-testid="page-info"]')).toContainText('2');
+
+    // Go back to first page
+    await page.locator('[data-testid="prev-page-button"]').click();
+    await expect(page.locator('[data-testid="page-info"]')).toContainText('1');
+
+    // Go to page 5 using number button
+    await page.locator('[data-testid="page-5-button"]').click();
+    await expect(page.locator('[data-testid="page-info"]')).toContainText('5');
+  });
+
+  test.skip('Should let you change items per page', async ({ page }) => {
+    // Change to show 25 items per page
+    await page.locator('[data-testid="items-per-page-select"]').selectOption('25');
+
+    // Check 25 rows are visible
+    const rows = page.locator('[data-testid^="pokemon-row-"]');
+    await expect(rows).toHaveCount(25);
   });
 });
