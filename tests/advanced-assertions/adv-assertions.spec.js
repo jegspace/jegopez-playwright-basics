@@ -4,6 +4,8 @@
 // Soft assertions - are helpful when you want to continue execution even if some assertions fail.
 // Custom expect messages improve the readability of test failures.
 
+// most common assertions that he's using: toHaveText, toBeVisible, toContainText, toHaveCount, toHaveValue, toBeChecked, toBeEnabled, toHaveURL, toHaveTitle
+
 import { test, expect } from '@playwright/test';
 
 test('Advanced assertions example with Sauce Demo', async ({ page }) => {
