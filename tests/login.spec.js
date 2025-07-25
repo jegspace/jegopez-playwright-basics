@@ -11,6 +11,9 @@ test('Verify login with valid credentials', async ({ page }) => {
   await page.locator('[data-test="password"]').fill('secret_sauce')
   await page.locator('[data-test="login-button"]').click()
   await expect(page.getByText('Swag Labs')).toBeVisible()
+  
+  // Screenshot after successful login
+  await page.screenshot({ path: 'test-screenshots/login-success.png', fullPage: true });
 });
 
 // Login with incorrect password

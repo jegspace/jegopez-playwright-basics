@@ -18,5 +18,5 @@ test('Authentication should be successful.', async ({ page }) => {
   await expect(page.getByText('Swag Labs')).toBeVisible();
 
   // Screenshot after successful login
-  await page.screenshot({ path: 'test-screenshots/login-success.png', fullPage: true });
+  await page.screenshot({ path: 'test-screenshots/authentication-success.png', fullPage: true });
 });
