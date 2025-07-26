@@ -7,7 +7,7 @@
     "login-test": "npx playwright test login.spec.js --project chromium",
     "register-test": "npx playwright test registration.spec.js --project chromium",
     "register-test-ui": "npx playwright test registration.spec.js --project chromium --ui",
-    "test-report": "npx playwright show-report",
+    "test-report": "npx playwright show-report"
   },
   "repository": {
     "type": "git",
