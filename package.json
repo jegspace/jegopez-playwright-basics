@@ -4,8 +4,16 @@
   "description": "Playwright Basics",
   "main": "index.js",
   "scripts": {
-    "login-test": "npx playwright test login.spec.js --project chromium"
+    "login-test": "npx playwright test login.spec.js --project chromium",
+    "register-test": "npx playwright test registration.spec.js --project chromium",
+    "register-test-ui": "npx playwright test registration.spec.js --project chromium --ui",
+    "test-report": "npx playwright show-report",
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jegspace/jegopez-playwright-basics.git"
+  },
+
   "keywords": [],
   "author": "",
   "license": "ISC",

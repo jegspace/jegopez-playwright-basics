@@ -7,7 +7,7 @@ import { test, expect } from '@playwright/test';
 test('Verify that user is able to login with valid credentials', async ({ page }) => {
     // ARRANGE & ACT
     // Test Step #1
-  await page.goto('https://www.saucedemo.com/')
+  await page.goto('/')
 
   // LOCATOR = a way to find an element on the page e.g. data-test = 'some_value'
   // FILL = a method to fill an input field with a value or text
@@ -28,7 +28,7 @@ test('Verify that user is able to login with valid credentials', async ({ page }
 // Login with invalid password
 
 test('Verify login fails with invalid credentials', async ({ page }) => {
-    await page.goto('https://www.saucedemo.com/')
+    await page.goto('/')
     await page.locator('[data-test="username"]').fill('standard_user')
     await page.locator('[data-test="password"]').fill('invalid_password')
     await page.locator('[data-test="login-button"]').click()
