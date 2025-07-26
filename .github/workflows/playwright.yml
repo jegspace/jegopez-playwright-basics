@@ -19,6 +19,8 @@ jobs:
       run: npx playwright install --with-deps
     - name: Run Playwright tests
       run: npm run login-test
+    - name: Run Register Test
+      run: npm run register-test
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
